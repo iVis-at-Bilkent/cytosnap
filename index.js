@@ -208,11 +208,24 @@ proto.shot = function( opts, next ){
   }).then(function(){
     if( opts.resolveTo === 'json' ){ return null; } // can skip in json case
 
-    return page.screenshot({ type: opts.format, quality: opts.quality, encoding: 'base64' });
+    if( opts.resolveTo === 'stream'){
+      return page.screenshot({ type: opts.format, quality: opts.quality, encoding: 'base64' });
+    }
+    
+    return page.evaluate(function(){
+      let image;
+      if(options.format == 'png') {
+        image = cy.png({bg: options.background, output: options.resolvesTo});
+      }
+      else {
+        image = cy.jpg({bg: options.background, output: options.resolvesTo});
+      }
+      return image;
+    });
   }).then(function( b64Img ){
     switch( opts.resolvesTo ){
       case 'base64uri':
-        return 'data:image/' + opts.format + ';base64,' + b64Img;
+        return b64Img;
       case 'base64':
         return b64Img;
       case 'stream':

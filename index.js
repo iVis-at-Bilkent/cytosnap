@@ -213,20 +213,11 @@ proto.shot = function( opts, next ){
     }
     
     return page.evaluate(function(){
-      function isColor(strColor){
-        var s = new Option().style;
-        s.color = strColor;
-        return s.color == strColor;
-      }      
       let image;
       if(options.format == 'png') {
-        if(!isColor(options.background))
-          options.background = "transparent";
         image = cy.png({bg: options.background, output: options.resolvesTo});
       }
       else {
-        if(!isColor(options.background))
-          options.background = "white";        
         image = cy.jpg({bg: options.background, output: options.resolvesTo});
       }
       return image;

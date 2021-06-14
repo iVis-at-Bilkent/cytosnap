@@ -77,8 +77,9 @@ let Cytosnap = function( opts = {} ){
 
 let extensions = [];
 
-Cytosnap.use = function(exts){
+Cytosnap.use = function(exts, deps){
   extensions = exts;
+  dependencies = deps;
 };
 
 let wroteExtensionList = false;
@@ -91,7 +92,7 @@ let writeExtensionsList = function(){
   let writeJs = contents => writeFile(path.join(__dirname, './browser/index.js'), contents);
 
   let fillTemplate = template => {
-    return Handlebars.compile(template)({ extensions });
+    return Handlebars.compile(template)({ extensions, dependencies });
   };
 
   let done = () => wroteExtensionList = true;

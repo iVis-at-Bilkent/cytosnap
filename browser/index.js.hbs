@@ -3,6 +3,9 @@
 /* global window, document */
 
 var cytoscape = window.cytoscape = require('cytoscape');
+{{#each dependencies}}
+var {{@key}} = window.{{@key}} = require('{{this}}');
+{{/each}}
 
 {{#each extensions}}
 cytoscape.use(require('{{this}}'));

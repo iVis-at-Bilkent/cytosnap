@@ -217,8 +217,11 @@ proto.shot = function( opts, next ){
       if(options.format == 'png') {
         image = cy.png({bg: options.background, output: options.resolvesTo});
       }
-      else {
+      else if(options.format == 'jpg'){
         image = cy.jpg({bg: options.background, output: options.resolvesTo});
+      }
+      else {
+        image = cy.svg({bg: options.background});
       }
       return image;
     });

@@ -243,6 +243,27 @@ proto.shot = function( opts, next ){
 
           return posns;
         });
+      case 'all':
+        let imageData = b64Img;
+        return page.evaluate(function(imageData){
+          let result = {};
+          let posns = {};
+          let widths = {};
+          let heights ={};
+
+          cy.nodes().forEach(function(n){
+            posns[ n.id() ] = n.position();
+            widths[ n.id() ] = n.outerWidth();
+            heights[ n.id() ] = n.outerHeight();
+          });
+          
+          result.positions = posns;
+          result.widths = widths;
+          result.heights = heights;
+          result.image = imageData;
+
+          return result;
+        }, imageData);        
       default:
         throw new Error('Invalid resolve type specified: ' + opts.resolvesTo);
     }

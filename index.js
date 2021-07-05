@@ -253,8 +253,9 @@ proto.shot = function( opts, next ){
 
           cy.nodes().forEach(function(n){
             posns[ n.id() ] = n.position();
-            widths[ n.id() ] = n.outerWidth();
-            heights[ n.id() ] = n.outerHeight();
+            let borderWidth = n.css('border-width').substring(0, n.css('border-width').length - 2);
+            widths[ n.id() ] = n.outerWidth() - borderWidth;
+            heights[ n.id() ] = n.outerHeight() - borderWidth;
           });
           
           result.positions = posns;

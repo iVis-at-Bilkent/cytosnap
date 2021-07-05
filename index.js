@@ -198,6 +198,12 @@ proto.shot = function( opts, next ){
       cy.style( options.style );
 
       cy.add( options.elements );
+      
+      if(cy.layoutUtilities) {
+        cy.layoutUtilities({
+          desiredAspectRatio: cy.width() / cy.height()
+        });
+      }      
 
       let layoutDone = cy.promiseOn('layoutstop');
 

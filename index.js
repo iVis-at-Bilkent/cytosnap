@@ -68,7 +68,10 @@ let Cytosnap = function( opts = {} ){
   // options to pass to puppeteer.launch()
   this.options.puppeteer = Object.assign({
     // defaults
-    args: opts.args, // backwards compat
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ], 
     headless: true
   }, opts.puppeteer);
 

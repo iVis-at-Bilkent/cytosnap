@@ -224,13 +224,13 @@ proto.shot = function( opts, next ){
     return page.evaluate(function(){
       let image;
       if(options.format == 'png') {
-        image = cy.png({bg: options.background, output: options.resolvesTo});
+        image = cy.png({bg: options.background, output: options.resolvesTo, full: options.fullGraph === true ? options.fullGraph : false});
       }
       else if(options.format == 'jpeg'){
-        image = cy.jpg({bg: options.background, output: options.resolvesTo});
+        image = cy.jpg({bg: options.background, output: options.resolvesTo, full: options.fullGraph === true ? options.fullGraph : false});
       }
       else {
-        image = cy.svg({bg: options.background});
+        image = cy.svg({bg: options.background, full: options.fullGraph === true ? options.fullGraph : false});
       }
       return image;
     });
